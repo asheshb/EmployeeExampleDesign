@@ -13,7 +13,7 @@
         <item name="android:textColor">@color/colorAccent</item>
     </style>
 
-    <style name="HeaderSmall" parent="@style/Header">
+    <style name="Header.Small">
         <item name="android:textColor">@color/colorGray</item>
         <item name="android:textStyle">italic</item>
     </style>
