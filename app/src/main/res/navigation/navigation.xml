@@ -8,7 +8,6 @@
     <fragment
         android:id="@+id/employeeListFragment"
         android:name="com.example.employeeexample.ui.EmployeeListFragment"
-        android:label="fragment_employee_list"
         tools:layout="@layout/fragment_employee_list" >
         <action
             android:id="@+id/action_employeeListFragment_to_employeeDetailFragment"
@@ -21,7 +20,6 @@
     <fragment
         android:id="@+id/employeeDetailFragment"
         android:name="com.example.employeeexample.ui.EmployeeDetailFragment"
-        android:label="fragment_employee_detail"
         tools:layout="@layout/fragment_employee_detail" >
         <argument
             android:name="id"
