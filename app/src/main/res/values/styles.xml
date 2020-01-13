@@ -6,9 +6,16 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+    </style>
 
+    <style name="Header" parent="TextAppearance.AppCompat">
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
+    <style name="HeaderSmall" parent="@style/Header">
+        <item name="android:textColor">@color/colorGray</item>
+        <item name="android:textStyle">italic</item>
     </style>
 
 </resources>
