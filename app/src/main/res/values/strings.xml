@@ -37,6 +37,9 @@
     <string name="pick_photo_from_gallery">Pick photo from gallery</string>
 
     <string name="employee_validate_error_message">Please enter the %1$s of employee</string>
+    <string name="company_name">Employee Star Pvt. Ltd.</string>
+    <string name="no_db_record">There are no employees to show.\n
+        Please add an employee by clicking the bottom right button</string>
 
 
 </resources>

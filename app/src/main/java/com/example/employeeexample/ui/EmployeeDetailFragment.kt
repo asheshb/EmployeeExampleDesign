@@ -10,7 +10,10 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
-import android.view.*
+import android.view.LayoutInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.RadioButton
 import android.widget.Toast
@@ -44,10 +47,10 @@ class EmployeeDetailFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
 
-        setHasOptionsMenu(true)
 
         viewModel = ViewModelProviders.of(this)
             .get(EmployeeDetailViewModel::class.java)
+
     }
 
     override fun onCreateView(
@@ -58,8 +61,17 @@ class EmployeeDetailFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_employee_detail, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        toolbar_detail.inflateMenu(R.menu.detail_menu)
+        toolbar_detail.setOnMenuItemClickListener {
+            handleMenuItem(it)
+        }
 
         val roles = mutableListOf<String>()
         Role.values().forEach { roles.add(it.name)}
@@ -326,12 +338,7 @@ class EmployeeDetailFragment : Fragment() {
 
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.detail_menu, menu)
-    }
-
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    private fun handleMenuItem(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu_share_data -> {
                 shareEmployeeData()

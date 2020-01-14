@@ -5,7 +5,10 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import android.webkit.MimeTypeMap
 import android.widget.Toast
 import androidx.core.content.FileProvider
@@ -37,8 +40,6 @@ class EmployeeListFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
 
-        setHasOptionsMenu(true)
-
         viewModel = ViewModelProviders.of(this)
             .get(EmployeeListViewModel::class.java)
     }
@@ -53,6 +54,11 @@ class EmployeeListFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        toolbar.inflateMenu(R.menu.list_menu)
+        toolbar.setOnMenuItemClickListener {
+            handleMenuItem(it)
+        }
 
         with(employee_list){
             layoutManager = LinearLayoutManager(activity)
@@ -75,15 +81,15 @@ class EmployeeListFragment : Fragment() {
 
         viewModel.employees.observe(viewLifecycleOwner, Observer {
             (employee_list.adapter as EmployeeAdapter).submitList(it)
+            if(it.isNotEmpty()){
+                no_employee_record.visibility = View.INVISIBLE
+            } else{
+                no_employee_record.visibility = View.VISIBLE
+            }
         })
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.list_menu, menu)
-    }
-
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    private fun handleMenuItem(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu_export_data -> {
                 GlobalScope.launch {

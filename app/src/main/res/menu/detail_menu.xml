@@ -5,5 +5,8 @@
 
     <item
         android:id="@+id/menu_share_data"
-        android:title= "@string/share_employee_data" />
+        android:title= "@string/share_employee_data"
+
+        />
+
 </menu>
