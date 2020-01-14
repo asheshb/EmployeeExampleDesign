@@ -195,7 +195,7 @@ class EmployeeDetailFragment : Fragment() {
         }
         val phone: Long
         try {
-            phone = employee_phone.text.toString().toInt()
+            phone = employee_phone.text.toString().toLong()
         } catch(ex: NumberFormatException){
             activity!!.showToast(getString(R.string.employee_validate_error_message, "valid phone"))
             return
