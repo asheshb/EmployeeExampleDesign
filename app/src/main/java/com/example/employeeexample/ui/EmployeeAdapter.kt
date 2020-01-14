@@ -13,10 +13,6 @@ import com.example.employeeexample.data.Gender
 import com.example.employeeexample.data.Role
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.list_item.*
-import kotlinx.android.synthetic.main.list_item.employee_age
-import kotlinx.android.synthetic.main.list_item.employee_name
-import kotlinx.android.synthetic.main.list_item.employee_photo
-import kotlinx.android.synthetic.main.list_item.employee_role
 
 
 class EmployeeAdapter(private val listener: (Long) -> Unit):
@@ -61,6 +57,8 @@ class EmployeeAdapter(private val listener: (Long) -> Unit):
                         employee_photo.setImageResource(R.drawable.blank_photo)
                     }
                 }
+                employee_responsibility?.text = responsibility
+
             }
         }
     }
