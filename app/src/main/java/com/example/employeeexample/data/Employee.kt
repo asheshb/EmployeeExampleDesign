@@ -24,7 +24,7 @@ data class Employee(@PrimaryKey(autoGenerate = true) val id: Long,
                     val responsibility: String,
                     val experience: String,
                     val education: String,
-                    val phone: Int,
+                    val phone: Long,
                     val email: String,
                     val address: String,
                     val photo: String)
