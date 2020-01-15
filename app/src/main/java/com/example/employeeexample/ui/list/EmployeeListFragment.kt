@@ -12,12 +12,12 @@ import android.view.ViewGroup
 import android.webkit.MimeTypeMap
 import android.widget.Toast
 import androidx.core.content.FileProvider
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,7 +27,6 @@ import com.example.employeeexample.data.Employee
 import com.example.employeeexample.ui.createFile
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_employee_list.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -64,20 +63,7 @@ class EmployeeListFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
 
-        val navController = NavHostFragment.findNavController(nav_host_fragment)
-        val appBarConfiguration = AppBarConfiguration(navController.graph, drawer_layout)
-//        toolbar
-//            .setupWithNavController(navController, appBarConfiguration)
-
-        val navigationView = activity!!.findViewById<NavigationView>(R.id.navigation_view)
-        NavigationUI.setupWithNavController(toolbar, navController, drawer_layout)
-        navigationView.setupWithNavController(navController)
-
-        navigationView.setNavigationItemSelectedListener {
-            true
-        }
-
-
+        setupNavigationDraer()
         toolbar.inflateMenu(R.menu.list_menu)
         toolbar.setOnMenuItemClickListener {
             handleMenuItem(it)
@@ -118,6 +104,35 @@ class EmployeeListFragment : Fragment() {
                 no_employee_record.visibility = View.VISIBLE
             }
         })
+    }
+
+    private fun setupNavigationDraer(){
+        val navController = Navigation.findNavController(activity!!, R.id.nav_host_fragment)
+        val drawerLayout = activity!!.findViewById<DrawerLayout>(R.id.drawer_layout)
+        val navigationView = activity!!.findViewById<NavigationView>(R.id.navigation_view)
+
+        NavigationUI.setupWithNavController(toolbar, navController, drawerLayout)
+        navigationView.setupWithNavController(navController)
+
+        navigationView.setNavigationItemSelectedListener {
+            drawerLayout.closeDrawers()
+
+            when (it.itemId) {
+                R.id.add_new ->  findNavController().navigate(
+                    EmployeeListFragmentDirections.actionEmployeeListFragmentToEmployeeDetailFragment(
+                        0
+                    )
+                )
+                R.id.contact ->  findNavController().navigate(
+                    EmployeeListFragmentDirections.actionEmployeeListFragmentToContactFragment()
+                )
+                R.id.about ->  findNavController().navigate(
+                    EmployeeListFragmentDirections.actionEmployeeListFragmentToAboutFragment()
+                )
+            }
+
+            true
+        }
     }
 
     private fun handleMenuItem(item: MenuItem): Boolean {
