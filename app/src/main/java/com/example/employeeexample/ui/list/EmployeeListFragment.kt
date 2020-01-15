@@ -6,7 +6,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.MimeTypeMap
@@ -25,6 +24,7 @@ import com.example.employeeexample.BuildConfig
 import com.example.employeeexample.R
 import com.example.employeeexample.data.Employee
 import com.example.employeeexample.ui.createFile
+import com.example.employeeexample.ui.showToast
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_employee_list.*
@@ -64,10 +64,6 @@ class EmployeeListFragment : Fragment() {
 
 
         setupNavigationDraer()
-        toolbar.inflateMenu(R.menu.list_menu)
-        toolbar.setOnMenuItemClickListener {
-            handleMenuItem(it)
-        }
 
         with(employee_list){
             layoutManager = LinearLayoutManager(activity)
@@ -129,49 +125,39 @@ class EmployeeListFragment : Fragment() {
                 R.id.about ->  findNavController().navigate(
                     EmployeeListFragmentDirections.actionEmployeeListFragmentToAboutFragment()
                 )
+                R.id.menu_export_data -> {
+                    GlobalScope.launch {
+                        exportEmployees()
+                    }
+                }
+                R.id.menu_import_data -> {
+                    Intent(Intent.ACTION_GET_CONTENT).also { readFileIntent ->
+                        readFileIntent.addCategory(Intent.CATEGORY_OPENABLE)
+                        readFileIntent.type = "text/*"
+                        readFileIntent.resolveActivity(activity!!.packageManager)?.also {
+                            startActivityForResult(readFileIntent,
+                                READ_FILE_REQUEST
+                            )
+                        }
+                    }
+                }
+                R.id.menu_latest_employee_name -> {
+                    val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE)
+                    val name = sharedPref?.getString(LATEST_EMPLOYEE_NAME_KEY, "")
+                    if(!name.isNullOrEmpty()){
+                        Snackbar.make(main_container,
+                            getString(R.string.latest_employee, name), Snackbar.LENGTH_LONG)
+                            .setAction("CLOSE"){
+
+                            }.show()
+
+                    } else if(name != null){
+                        activity!!.showToast(getString(R.string.no_employee_added))
+                    }
+                }
             }
 
             true
-        }
-    }
-
-    private fun handleMenuItem(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.menu_export_data -> {
-                GlobalScope.launch {
-                    exportEmployees()
-                }
-                true
-            }
-            R.id.menu_import_data -> {
-                Intent(Intent.ACTION_GET_CONTENT).also { readFileIntent ->
-                    readFileIntent.addCategory(Intent.CATEGORY_OPENABLE)
-                    readFileIntent.type = "text/*"
-                    readFileIntent.resolveActivity(activity!!.packageManager)?.also {
-                        startActivityForResult(readFileIntent,
-                            READ_FILE_REQUEST
-                        )
-                    }
-                }
-                true
-            }
-            R.id.menu_latest_employee_name -> {
-                val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return true
-                val name = sharedPref.getString(LATEST_EMPLOYEE_NAME_KEY, "")
-                if(!name.isNullOrEmpty()){
-                        Snackbar.make(main_container,
-                            getString(R.string.latest_employee, name), Snackbar.LENGTH_LONG)
-                        .setAction("CLOSE"){
-
-                        }.show()
-
-                } else{
-                    Toast.makeText(activity!!, getString(R.string.no_employee_added),
-                        Toast.LENGTH_SHORT).show()
-                }
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
         }
     }
 
