@@ -72,6 +72,8 @@ class EmployeeDetailFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+
+
         val navController = findNavController(nav_host_fragment)
         val appBarConfiguration = AppBarConfiguration(navController.graph)
         toolbar_detail

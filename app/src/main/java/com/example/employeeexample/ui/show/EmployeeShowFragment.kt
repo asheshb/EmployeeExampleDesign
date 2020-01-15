@@ -42,7 +42,6 @@ class EmployeeShowFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-
         employee_photo.setImageResource(R.drawable.blank_photo)
         employee_photo.tag = ""
 
