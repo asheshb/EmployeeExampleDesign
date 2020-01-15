@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingBottom="@dimen/normal_margin"
     >
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -18,7 +19,7 @@
             android:paddingRight="@dimen/normal_margin"
             android:paddingEnd="@dimen/normal_margin"
             android:layout_marginTop="60dp"
-            tools:context=".ui.EmployeeDetailFragment">
+            tools:context=".ui.detail.EmployeeDetailFragment">
 
             <TextView
                 android:id="@+id/employee_email_label"

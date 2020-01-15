@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/employeeListFragment"
-        android:name="com.example.employeeexample.ui.EmployeeListFragment"
+        android:name="com.example.employeeexample.ui.list.EmployeeListFragment"
         tools:layout="@layout/fragment_employee_list" >
         <action
             android:id="@+id/action_employeeListFragment_to_employeeDetailFragment"
@@ -16,11 +16,24 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_employeeListFragment_to_employeeShowFragment"
+            app:destination="@id/employeeShowFragment" />
     </fragment>
     <fragment
         android:id="@+id/employeeDetailFragment"
-        android:name="com.example.employeeexample.ui.EmployeeDetailFragment"
+        android:name="com.example.employeeexample.ui.detail.EmployeeDetailFragment"
         tools:layout="@layout/fragment_employee_detail" >
+        <argument
+            android:name="id"
+            app:argType="long"
+            android:defaultValue="0L" />
+    </fragment>
+    <fragment
+        android:id="@+id/employeeShowFragment"
+        android:name="com.example.employeeexample.ui.show.EmployeeShowFragment"
+        android:label="fragment_employee_show"
+        tools:layout="@layout/fragment_employee_show" >
         <argument
             android:name="id"
             app:argType="long"

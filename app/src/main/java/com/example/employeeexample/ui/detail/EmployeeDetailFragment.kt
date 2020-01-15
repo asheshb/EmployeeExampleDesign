@@ -1,4 +1,4 @@
-package com.example.employeeexample.ui
+package com.example.employeeexample.ui.detail
 
 
 import android.Manifest
@@ -22,12 +22,19 @@ import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.NavHostFragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
 import com.example.employeeexample.BuildConfig
 import com.example.employeeexample.R
 import com.example.employeeexample.data.Employee
 import com.example.employeeexample.data.Gender
 import com.example.employeeexample.data.Role
+import com.example.employeeexample.ui.createFile
+import com.example.employeeexample.ui.list.LATEST_EMPLOYEE_NAME_KEY
+import com.example.employeeexample.ui.showToast
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_employee_detail.*
 import java.io.File
 import java.io.FileOutputStream
@@ -61,12 +68,16 @@ class EmployeeDetailFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_employee_detail, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        val navController = findNavController(nav_host_fragment)
+        val appBarConfiguration = AppBarConfiguration(navController.graph)
+        toolbar_detail
+            .setupWithNavController(navController, appBarConfiguration)
+
+
 
         toolbar_detail.inflateMenu(R.menu.detail_menu)
         toolbar_detail.setOnMenuItemClickListener {
@@ -85,7 +96,9 @@ class EmployeeDetailFragment : Fragment() {
         employee_photo.setImageResource(R.drawable.blank_photo)
         employee_photo.tag = ""
 
-        val id = EmployeeDetailFragmentArgs.fromBundle(requireArguments()).id
+        val id = EmployeeDetailFragmentArgs.fromBundle(
+            requireArguments()
+        ).id
         viewModel.setEmployeeId(id)
 
         viewModel.employee.observe(viewLifecycleOwner, Observer {
@@ -130,6 +143,7 @@ class EmployeeDetailFragment : Fragment() {
 
         employee_role.setSelection(employee.role)
         employee_age.setSelection(employee.age - 18)
+
 
         when (employee.gender) {
             Gender.Male.ordinal -> {
@@ -251,12 +265,14 @@ class EmployeeDetailFragment : Fragment() {
                     "When asked please give the permission", Snackbar.LENGTH_INDEFINITE)
             snack.setAction("OK", View.OnClickListener {
                 requestPermissions(arrayOf(Manifest.permission.CAMERA),
-                    PERMISSION_REQUEST_CAMERA)
+                    PERMISSION_REQUEST_CAMERA
+                )
             })
             snack.show()
         } else {
             requestPermissions(arrayOf(Manifest.permission.CAMERA),
-                PERMISSION_REQUEST_CAMERA)
+                PERMISSION_REQUEST_CAMERA
+            )
         }
     }
 
@@ -277,7 +293,11 @@ class EmployeeDetailFragment : Fragment() {
         Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
             takePictureIntent.resolveActivity(activity!!.packageManager)?.also {
                 val photoFile: File? = try {
-                    createFile(activity!!, Environment.DIRECTORY_PICTURES, "jpg")
+                    createFile(
+                        activity!!,
+                        Environment.DIRECTORY_PICTURES,
+                        "jpg"
+                    )
                 } catch (ex: IOException) {
 
                     Toast.makeText(activity!!, getString(R.string.create_file_error, ex.message),
@@ -293,7 +313,9 @@ class EmployeeDetailFragment : Fragment() {
                         it
                     )
                     takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
-                    startActivityForResult(takePictureIntent, CAMERA_PHOTO_REQUEST)
+                    startActivityForResult(takePictureIntent,
+                        CAMERA_PHOTO_REQUEST
+                    )
                 }
             }
         }
@@ -310,7 +332,11 @@ class EmployeeDetailFragment : Fragment() {
                 }
                 GALLERY_PHOTO_REQUEST ->{
                     val photoFile: File? = try {
-                        createFile(activity!!, Environment.DIRECTORY_PICTURES, "jpg")
+                        createFile(
+                            activity!!,
+                            Environment.DIRECTORY_PICTURES,
+                            "jpg"
+                        )
                     } catch (ex: IOException) {
                         Toast.makeText(activity!!, getString(R.string.create_file_error, ex.message),
                             Toast.LENGTH_SHORT).show()
@@ -334,7 +360,9 @@ class EmployeeDetailFragment : Fragment() {
 
     private fun pickPhoto(){
         val pickPhotoIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        startActivityForResult(pickPhotoIntent, GALLERY_PHOTO_REQUEST)
+        startActivityForResult(pickPhotoIntent,
+            GALLERY_PHOTO_REQUEST
+        )
 
     }
 

@@ -1,4 +1,4 @@
-package com.example.employeeexample.ui
+package com.example.employeeexample.ui.list
 
 import android.app.Activity
 import android.content.Context
@@ -20,6 +20,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.employeeexample.BuildConfig
 import com.example.employeeexample.R
 import com.example.employeeexample.data.Employee
+import com.example.employeeexample.ui.createFile
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_employee_list.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -62,12 +64,20 @@ class EmployeeListFragment : Fragment() {
 
         with(employee_list){
             layoutManager = LinearLayoutManager(activity)
-            adapter = EmployeeAdapter {
-                findNavController().navigate(
-                    EmployeeListFragmentDirections.actionEmployeeListFragmentToEmployeeDetailFragment(
-                        it
+            adapter = EmployeeAdapter {show, id ->
+                if(show){
+                    findNavController().navigate(
+                        EmployeeListFragmentDirections.actionEmployeeListFragmentToEmployeeShowFragment(
+                            id
+                        )
                     )
-                )
+                } else{
+                    findNavController().navigate(
+                        EmployeeListFragmentDirections.actionEmployeeListFragmentToEmployeeDetailFragment(
+                            id
+                        )
+                    )
+                }
             }
         }
 
@@ -102,7 +112,9 @@ class EmployeeListFragment : Fragment() {
                     readFileIntent.addCategory(Intent.CATEGORY_OPENABLE)
                     readFileIntent.type = "text/*"
                     readFileIntent.resolveActivity(activity!!.packageManager)?.also {
-                        startActivityForResult(readFileIntent, READ_FILE_REQUEST)
+                        startActivityForResult(readFileIntent,
+                            READ_FILE_REQUEST
+                        )
                     }
                 }
                 true
@@ -111,8 +123,12 @@ class EmployeeListFragment : Fragment() {
                 val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return true
                 val name = sharedPref.getString(LATEST_EMPLOYEE_NAME_KEY, "")
                 if(!name.isNullOrEmpty()){
-                    Toast.makeText(activity!!, getString(R.string.latest_employee, name),
-                        Toast.LENGTH_SHORT).show()
+                        Snackbar.make(main_container,
+                            getString(R.string.latest_employee, name), Snackbar.LENGTH_LONG)
+                        .setAction("CLOSE"){
+
+                        }.show()
+
                 } else{
                     Toast.makeText(activity!!, getString(R.string.no_employee_added),
                         Toast.LENGTH_SHORT).show()
@@ -160,7 +176,11 @@ class EmployeeListFragment : Fragment() {
     private suspend fun exportEmployees(){
         var csvFile: File? = null
         withContext(Dispatchers.IO) {
-            csvFile = createFile(activity!!, "Documents", "csv")
+            csvFile = createFile(
+                activity!!,
+                "Documents",
+                "csv"
+            )
             csvFile?.printWriter()?.use { out ->
                 val employees = viewModel.getEmployeeList()
                 if(employees.isNotEmpty()){

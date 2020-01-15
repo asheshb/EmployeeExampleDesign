@@ -1,12 +1,16 @@
-package com.example.employeeexample.data
+package com.example.employeeexample.data.list
 
 import android.app.Application
 import androidx.lifecycle.LiveData
+import com.example.employeeexample.data.Employee
+import com.example.employeeexample.data.EmployeeDatabase
 
 
 class EmployeeListRepository(context: Application){
     private val employeeListDao: EmployeeListDao =
-        EmployeeDatabase.getDatabase(context).employeeListDao()
+        EmployeeDatabase.getDatabase(
+            context
+        ).employeeListDao()
 
     fun getEmployees(): LiveData<List<Employee>> =
         employeeListDao.getEmployees()

@@ -1,7 +1,8 @@
-package com.example.employeeexample.data
+package com.example.employeeexample.data.detail
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.example.employeeexample.data.Employee
 
 
 @Dao

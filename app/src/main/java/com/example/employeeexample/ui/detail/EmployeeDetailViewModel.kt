@@ -1,14 +1,16 @@
-package com.example.employeeexample.ui
+package com.example.employeeexample.ui.detail
 
 import android.app.Application
 import androidx.lifecycle.*
 import com.example.employeeexample.data.Employee
-import com.example.employeeexample.data.EmployeeDetailRepository
+import com.example.employeeexample.data.detail.EmployeeDetailRepository
 import kotlinx.coroutines.launch
 
 class EmployeeDetailViewModel(application: Application): AndroidViewModel(application){
     private val repo: EmployeeDetailRepository =
-        EmployeeDetailRepository(application)
+        EmployeeDetailRepository(
+            application
+        )
 
     private val _employeeId = MutableLiveData<Long>(0)
     val employeeId: LiveData<Long>

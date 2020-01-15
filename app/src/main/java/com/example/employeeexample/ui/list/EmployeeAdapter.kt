@@ -1,4 +1,4 @@
-package com.example.employeeexample.ui
+package com.example.employeeexample.ui.list
 
 import android.net.Uri
 import android.view.LayoutInflater
@@ -15,7 +15,7 @@ import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.list_item.*
 
 
-class EmployeeAdapter(private val listener: (Long) -> Unit):
+class EmployeeAdapter(private val listener: (Boolean, Long) -> Unit):
     ListAdapter<Employee, EmployeeAdapter.ViewHolder>(
         DiffCallback()
     ){
@@ -36,7 +36,10 @@ class EmployeeAdapter(private val listener: (Long) -> Unit):
         LayoutContainer {
         init{
             itemView.setOnClickListener{
-                listener.invoke(getItem(adapterPosition).id)
+                listener.invoke(true, getItem(adapterPosition).id)
+            }
+            edit_employee.setOnClickListener{
+                listener.invoke(false, getItem(adapterPosition).id)
             }
         }
 
