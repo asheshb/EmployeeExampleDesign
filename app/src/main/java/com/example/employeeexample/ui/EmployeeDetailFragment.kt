@@ -23,6 +23,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.example.employeeexample.BuildConfig
@@ -72,7 +73,7 @@ class EmployeeDetailFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        val navController = NavHostFragment.findNavController(nav_host_fragment)
+        val navController = findNavController()
         val appBarConfiguration = AppBarConfiguration(navController.graph)
         toolbar_detail
             .setupWithNavController(navController, appBarConfiguration)
