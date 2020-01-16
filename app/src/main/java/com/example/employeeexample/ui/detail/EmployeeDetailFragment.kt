@@ -30,7 +30,6 @@ import com.example.employeeexample.R
 import com.example.employeeexample.data.Employee
 import com.example.employeeexample.data.Gender
 import com.example.employeeexample.data.Role
-import com.example.employeeexample.ui.EmployeeDetailFragmentArgs
 import com.example.employeeexample.ui.createFile
 import com.example.employeeexample.ui.list.LATEST_EMPLOYEE_NAME_KEY
 import com.example.employeeexample.ui.showToast
