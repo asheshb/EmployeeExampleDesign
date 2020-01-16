@@ -28,6 +28,7 @@
         android:layout_marginLeft="@dimen/normal_margin"
         android:layout_marginTop="@dimen/medium_margin"
         style="@style/Header"
+        android:textAppearance="?textAppearanceHeadline5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/employee_photo"
         app:layout_constraintTop_toTopOf="parent"
