@@ -22,12 +22,16 @@ import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
 import com.example.employeeexample.BuildConfig
 import com.example.employeeexample.R
 import com.example.employeeexample.data.Employee
 import com.example.employeeexample.data.Gender
 import com.example.employeeexample.data.Role
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_employee_detail.*
 import java.io.File
 import java.io.FileOutputStream
@@ -67,6 +71,11 @@ class EmployeeDetailFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        val navController = NavHostFragment.findNavController(nav_host_fragment)
+        val appBarConfiguration = AppBarConfiguration(navController.graph)
+        toolbar_detail
+            .setupWithNavController(navController, appBarConfiguration)
 
         toolbar_detail.inflateMenu(R.menu.detail_menu)
         toolbar_detail.setOnMenuItemClickListener {
