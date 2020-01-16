@@ -6,7 +6,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.ui.AppBarConfiguration
 import com.example.employeeexample.R
 import java.io.File
 import java.text.SimpleDateFormat
@@ -27,7 +26,6 @@ fun Activity.showToast(msg: String, duration: Int = Toast.LENGTH_SHORT){
 }
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
