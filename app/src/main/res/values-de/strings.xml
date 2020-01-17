@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="app_name">Employee Example</string>
+    <string name="company_name">Employee Star Pvt. Ltd.</string>
+
+    <string name="save_employee">Save</string>
+    <string name="delete_employee">Delete</string>
+
+
+</resources>
