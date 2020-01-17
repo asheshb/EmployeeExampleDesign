@@ -43,17 +43,11 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_detail"
+    <include
+        layout="@layout/toolbar_layout"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@color/colorPrimary"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        android:layout_height="wrap_content" />
 
-        <include
-            layout="@layout/list_toolbar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </androidx.appcompat.widget.Toolbar>
+
 
 </FrameLayout>

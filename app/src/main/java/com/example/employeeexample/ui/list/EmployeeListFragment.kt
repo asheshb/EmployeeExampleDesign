@@ -63,7 +63,7 @@ class EmployeeListFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
 
-        setupNavigationDraer()
+        setupNavigationDrawer()
 
         with(employee_list){
             layoutManager = LinearLayoutManager(activity)
@@ -102,7 +102,7 @@ class EmployeeListFragment : Fragment() {
         })
     }
 
-    private fun setupNavigationDraer(){
+    private fun setupNavigationDrawer(){
         val navController = Navigation.findNavController(activity!!, R.id.nav_host_fragment)
         val drawerLayout = activity!!.findViewById<DrawerLayout>(R.id.drawer_layout)
         val navigationView = activity!!.findViewById<NavigationView>(R.id.navigation_view)

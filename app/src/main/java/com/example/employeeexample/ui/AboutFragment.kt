@@ -11,7 +11,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.example.employeeexample.R
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_employee_detail.*
+import kotlinx.android.synthetic.main.toolbar_layout.*
 
 /**
  * A simple [Fragment] subclass.
@@ -31,7 +31,7 @@ class AboutFragment : Fragment() {
 
         val navController = NavHostFragment.findNavController(nav_host_fragment)
         val appBarConfiguration = AppBarConfiguration(navController.graph)
-        toolbar_detail
+        toolbar
             .setupWithNavController(navController, appBarConfiguration)
     }
 }
