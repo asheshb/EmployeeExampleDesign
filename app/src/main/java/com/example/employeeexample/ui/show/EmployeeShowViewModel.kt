@@ -15,8 +15,6 @@ class EmployeeShowViewModel(application: Application): AndroidViewModel(applicat
         )
 
     private val _employeeId = MutableLiveData<Long>(0)
-    val employeeId: LiveData<Long>
-        get() = _employeeId
 
     val employee: LiveData<Employee> = Transformations
         .switchMap(_employeeId) { id ->
