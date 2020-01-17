@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     >
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/main.appbar"
+        android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="280dp"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
@@ -18,7 +18,7 @@
             android:layout_height="match_parent"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:contentScrim="?attr/colorPrimary"
-            app:collapsedTitleGravity="center_horizontal"
+            app:collapsedTitleGravity="start|left"
             app:expandedTitleGravity="bottom|center_horizontal"
             app:title="@string/app_name"
             >
