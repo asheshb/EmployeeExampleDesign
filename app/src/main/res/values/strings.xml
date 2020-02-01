@@ -67,4 +67,6 @@ Sed non eleifend diam. Suspendisse cursus aliquam consectetur. In augue turpis, 
     <string name="website">Website:</string>
     <string name="website_address">www.employeeexample.com</string>
     <string name="phone_number">+91-1234567890</string>
+    <string name="employee_of_the_day">Employee of the day</string>
+    <string name="employee_of_the_day_name">YAY! %1$s is the chosen one</string>
 </resources>
