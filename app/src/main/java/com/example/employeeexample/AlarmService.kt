@@ -38,18 +38,10 @@ class AlarmService: Service(){
         return START_STICKY
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-
-        player?.stop()
-        player?.release()
-    }
-
     private fun startAlarm(){
         showNotification()
         playAlarm()
     }
-
 
     private fun showNotification(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -100,4 +92,12 @@ class AlarmService: Service(){
         channel.lockscreenVisibility = Notification.VISIBILITY_PUBLIC
         notificationManager.createNotificationChannel(channel)
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        player?.stop()
+        player?.release()
+    }
+
 }

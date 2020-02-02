@@ -175,6 +175,7 @@ class EmployeeListFragment : Fragment() {
                                 alarmIntent)
                         }
                         Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT -> {
+                            //API >= 19
                             alarmMgr.setExact(
                                 AlarmManager.ELAPSED_REALTIME_WAKEUP,
                                 SystemClock.elapsedRealtime() + 60 * 1000,
