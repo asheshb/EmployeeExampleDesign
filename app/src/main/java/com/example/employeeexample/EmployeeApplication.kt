@@ -15,6 +15,7 @@ class EmployeeApplication: Application() {
             .setRequiresCharging(true)
             .build()
 
+        //minimum duration 15 minutes
         val myWork =  PeriodicWorkRequest.Builder(EmployeeOfTheDayWorker::class.java,
             24, TimeUnit.HOURS)
             .setConstraints(constraints)

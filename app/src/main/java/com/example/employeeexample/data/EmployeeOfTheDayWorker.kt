@@ -16,41 +16,18 @@ import com.example.employeeexample.R
 import com.example.employeeexample.ui.MainActivity
 
 
-const val EMPLOYEE_OF_THE_DAY_NAME_KEY = "EMPLOYEE_OF_THE_DAY_NAME_KEY"
-const val EMPLOYEE_OF_THE_DAY_AGE_KEY = "EMPLOYEE_OF_THE_DAY_AGE_KEY"
-
 class EmployeeOfTheDayWorker(ctx: Context, params: WorkerParameters) : Worker(ctx, params) {
     private val CHANNEL_ID = "1000"
 
     override fun doWork(): Result {
+        // runs on Background thread
 
         if (runAttemptCount > 5) {
             return Result.failure()
         }
         try {
             val name = getEmployeeOfTheDay()
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                createChannel()
-            }
-
-            val intent = Intent(applicationContext, MainActivity::class.java)
-
-            val uniqueInt = (System.currentTimeMillis() and 0xfffffff).toInt()
-            val pendingIntent: PendingIntent = PendingIntent.getActivity(applicationContext,
-                uniqueInt, intent, PendingIntent.FLAG_UPDATE_CURRENT)
-
-            val builder = NotificationCompat.Builder(applicationContext, CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_launcher)
-                .setContentTitle(applicationContext.getString(R.string.employee_of_the_day))
-                .setContentText(applicationContext.getString(R.string.employee_of_the_day_name, name))
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setContentIntent(pendingIntent)
-                .setAutoCancel(true)
-
-            with(NotificationManagerCompat.from(applicationContext)) {
-                notify(100, builder.build())
-            }
+            showNotification(name)
         }
         catch (e: Exception) {
 
@@ -58,6 +35,38 @@ class EmployeeOfTheDayWorker(ctx: Context, params: WorkerParameters) : Worker(ct
         }
 
         return Result.success()
+    }
+
+    private fun getEmployeeOfTheDay(): String{
+        // get name and age of employee of the day from API
+        // we are not implementing a real API instead having a hard coded name
+        // ideally an employer id wil be more accurate
+        return "Sara Jones"
+
+    }
+
+    private fun showNotification(name: String){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            createChannel()
+        }
+
+        val intent = Intent(applicationContext, MainActivity::class.java)
+
+        val uniqueInt = (System.currentTimeMillis() and 0xfffffff).toInt()
+        val pendingIntent: PendingIntent = PendingIntent.getActivity(applicationContext,
+            uniqueInt, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+
+        val builder = NotificationCompat.Builder(applicationContext, CHANNEL_ID)
+            .setSmallIcon(R.drawable.ic_launcher)
+            .setContentTitle(applicationContext.getString(R.string.employee_of_the_day))
+            .setContentText(applicationContext.getString(R.string.employee_of_the_day_name, name))
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setContentIntent(pendingIntent)
+            .setAutoCancel(true)
+
+        with(NotificationManagerCompat.from(applicationContext)) {
+            notify(100, builder.build())
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -79,11 +88,4 @@ class EmployeeOfTheDayWorker(ctx: Context, params: WorkerParameters) : Worker(ct
         notificationManager.createNotificationChannel(channel)
     }
 
-    fun getEmployeeOfTheDay(): String{
-        // get name and age of employee of the day from API
-        // we are not implementing a real API instead having a hard coded name
-        // ideally an employer id wil be more accurate
-        return "Sara Jones"
-
-    }
 }
