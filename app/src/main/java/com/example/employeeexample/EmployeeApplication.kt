@@ -19,7 +19,8 @@ class EmployeeApplication: Application() {
         val myWork =  PeriodicWorkRequest.Builder(EmployeeOfTheDayWorker::class.java,
             24, TimeUnit.HOURS)
             .setConstraints(constraints)
-            .setBackoffCriteria(BackoffPolicy.LINEAR, PeriodicWorkRequest.MIN_BACKOFF_MILLIS, TimeUnit.MILLISECONDS)
+            .setBackoffCriteria(BackoffPolicy.LINEAR, PeriodicWorkRequest.MIN_BACKOFF_MILLIS,
+                TimeUnit.MILLISECONDS)
             .build()
 
         WorkManager.getInstance(this).enqueueUniquePeriodicWork(
