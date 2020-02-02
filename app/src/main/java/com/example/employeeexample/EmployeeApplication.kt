@@ -15,15 +15,16 @@ class EmployeeApplication: Application() {
             .setRequiresCharging(true)
             .build()
 
+        //minimum duration 15 minutes
         val myWork =  PeriodicWorkRequest.Builder(EmployeeOfTheDayWorker::class.java,
-            24, TimeUnit.HOURS)
+            16, TimeUnit.MINUTES)
             .setConstraints(constraints)
             .setBackoffCriteria(BackoffPolicy.LINEAR, PeriodicWorkRequest.MIN_BACKOFF_MILLIS, TimeUnit.MILLISECONDS)
             .build()
 
         WorkManager.getInstance(this).enqueueUniquePeriodicWork(
             "EmployeeOfTheDay",
-        ExistingPeriodicWorkPolicy.KEEP,
+        ExistingPeriodicWorkPolicy.REPLACE,
         myWork)
     }
 }

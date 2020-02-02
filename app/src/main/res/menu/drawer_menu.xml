@@ -24,6 +24,13 @@
             android:title="@string/import_data" />
     </group>
     <group
+        android:id="@+id/alarm"
+        android:checkableBehavior="none">
+        <item
+            android:id="@+id/menu_alarm"
+            android:title="@string/alarm_data" />
+    </group>
+    <group
         android:id="@+id/pages"
         android:checkableBehavior="none">
         <item

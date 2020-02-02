@@ -1,10 +1,14 @@
 package com.example.employeeexample.ui.list
 
 import android.app.Activity
+import android.app.AlarmManager
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.os.SystemClock
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +24,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.employeeexample.AlarmReceiver
 import com.example.employeeexample.BuildConfig
 import com.example.employeeexample.R
 import com.example.employeeexample.data.Employee
@@ -154,6 +159,35 @@ class EmployeeListFragment : Fragment() {
                     } else if(name != null){
                         activity!!.showToast(getString(R.string.no_employee_added))
                     }
+                }
+                R.id.menu_alarm -> {
+                    val alarmMgr = activity?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+                    val alarmIntent = Intent(context, AlarmReceiver::class.java).let { intent ->
+                        PendingIntent.getBroadcast(context, 0, intent, 0)
+                    }
+
+                    when {
+                        Build.VERSION.SDK_INT >= Build.VERSION_CODES.M -> {
+                            //API >= 23
+                            alarmMgr.setExactAndAllowWhileIdle(
+                                AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                                SystemClock.elapsedRealtime() + 60 * 1000,
+                                alarmIntent)
+                        }
+                        Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT -> {
+                            alarmMgr.setExact(
+                                AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                                SystemClock.elapsedRealtime() + 60 * 1000,
+                                alarmIntent)
+                        }
+                        else -> {
+                            alarmMgr.set(
+                                AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                                SystemClock.elapsedRealtime() + 60 * 1000,
+                                alarmIntent)
+                        }
+                    }
+                    activity!!.showToast(getString(R.string.alarm_set_message), Toast.LENGTH_SHORT)
                 }
             }
 

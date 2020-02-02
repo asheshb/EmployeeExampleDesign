@@ -33,6 +33,13 @@
             <meta-data android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths"/>
         </provider>
+
+        <receiver android:name=".AlarmReceiver"/>
+
+        <service
+            android:name=".AlarmService"
+            android:enabled="true"
+            android:exported="false" />
     </application>
 
 </manifest>
