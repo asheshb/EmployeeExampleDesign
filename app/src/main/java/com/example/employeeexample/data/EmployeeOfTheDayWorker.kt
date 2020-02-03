@@ -30,7 +30,6 @@ class EmployeeOfTheDayWorker(ctx: Context, params: WorkerParameters) : Worker(ct
             showNotification(name)
         }
         catch (e: Exception) {
-
             return Result.retry()
         }
 
