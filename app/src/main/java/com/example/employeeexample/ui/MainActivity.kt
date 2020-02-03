@@ -8,14 +8,13 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.work.OneTimeWorkRequest
-import androidx.work.WorkManager
 import com.example.employeeexample.R
-import com.example.employeeexample.data.EmployeeOfTheDayWorker
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.Locale
+
 
 fun createFile(context: Context, folder: String, ext: String): File {
     val timeStamp: String =
@@ -38,13 +37,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        runWorker()
+
+        //runWorker()
     }
 
-    private fun runWorker(){
-        val work = OneTimeWorkRequest.Builder(EmployeeOfTheDayWorker::class.java).build()
-        WorkManager.getInstance(this).enqueue(work)
-    }
+//    private fun runWorker(){
+//        val work = OneTimeWorkRequest.Builder(EmployeeOfTheDayWorker::class.java).build()
+//        WorkManager.getInstance(this).enqueue(work)
+//    }
 
 
     override fun onBackPressed() {
