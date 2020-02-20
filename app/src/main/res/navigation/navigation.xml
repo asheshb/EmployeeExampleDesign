@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/employeeListFragment">
+    app:startDestination="@id/loginFragment">
 
     <fragment
         android:id="@+id/employeeListFragment"
@@ -37,6 +37,11 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_employeeListFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@+id/employeeListFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/employeeDetailFragment"
@@ -64,4 +69,32 @@
         android:id="@+id/contactFragment"
         android:name="com.example.employeeexample.ui.ContactFragment"
          />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.employeeexample.ui.login.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_employeeListFragment"
+            app:destination="@id/employeeListFragment"
+            app:popUpTo="@+id/loginFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.example.employeeexample.ui.login.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" >
+        <action
+            android:id="@+id/action_registerFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_registerFragment_to_employeeListFragment"
+            app:destination="@id/employeeListFragment"
+            app:popUpTo="@+id/registerFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>

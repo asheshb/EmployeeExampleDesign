@@ -21,6 +21,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -32,6 +33,7 @@ import com.example.employeeexample.ui.createFile
 import com.example.employeeexample.ui.showToast
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_employee_list.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -112,7 +114,14 @@ class EmployeeListFragment : Fragment() {
         val drawerLayout = activity!!.findViewById<DrawerLayout>(R.id.drawer_layout)
         val navigationView = activity!!.findViewById<NavigationView>(R.id.navigation_view)
 
-        NavigationUI.setupWithNavController(toolbar, navController, drawerLayout)
+        //NavigationUI.setupWithNavController(toolbar, navController, drawerLayout)
+        NavigationUI.setupWithNavController(
+            toolbar, navController,
+            AppBarConfiguration.Builder(R.id.navigation, R.id.employeeListFragment)
+                .setDrawerLayout(drawerLayout)
+                .build()
+        )
+
         navigationView.setupWithNavController(navController)
 
         navigationView.setNavigationItemSelectedListener {
@@ -189,6 +198,21 @@ class EmployeeListFragment : Fragment() {
                         }
                     }
                     activity!!.showToast(getString(R.string.alarm_set_message), Toast.LENGTH_SHORT)
+                }
+                R.id.sign_out -> {
+                    val auth = FirebaseAuth.getInstance()
+                    auth.signOut()
+                    auth.addAuthStateListener {
+                        if(auth.currentUser == null){
+                            val currId = findNavController().currentDestination!!.id
+                            //listener is called multiple times so check if we are in correct fragment
+                            if(currId == R.id.employeeListFragment) {
+                                findNavController().navigate(
+                                    EmployeeListFragmentDirections.actionEmployeeListFragmentToLoginFragment()
+                                )
+                            }
+                        }
+                    }
                 }
             }
 

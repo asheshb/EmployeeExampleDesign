@@ -50,6 +50,7 @@
     <string name="add_new_employee">Add New Employee</string>
     <string name="about_us">About Us</string>
     <string name="contact_us">Contact Us</string>
+    <string name="sign_out">Sign Out</string>
 
     <string name="about_us_content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla elementum fermentum ante, vel faucibus libero elementum quis. Ut condimentum enim vel viverra tincidunt. Morbi ut tempor augue. Pellentesque at lorem ex. Nunc varius ex at mi elementum finibus. In et convallis turpis. Mauris consequat aliquet risus, eu venenatis ipsum. Vestibulum viverra nibh est, eu porta nulla dignissim sit amet. Maecenas venenatis leo et elit lacinia dapibus non eu sapien.\n\n
 
