@@ -18,6 +18,7 @@
     <string name="import_data">Import employee data</string>
 
     <string name="alarm_data">Set alarm 30 minutes from now</string>
+    <string name="company_chat">Company chat</string>
 
     <string name="years">%1$d years</string>
     <string name="no_app_csv">No app to read CSV file</string>
@@ -75,4 +76,10 @@ Sed non eleifend diam. Suspendisse cursus aliquam consectetur. In augue turpis, 
     <string name="alarm_set_message">Alarm set for 30 minutes from now</string>
     <string name="alarm_channel">Employee example alarm notification channel</string>
     <string name="employee_alarm">Employee Alarm</string>
+    <string name="enter_a_message">Enter a message</string>
+    <string name="send_message">Send message</string>
+    <string name="enter_message">Please enter a message to send.</string>
+    <string name="unknown">Unknown</string>
+
+    <string name="send_message_failure">"Failed to send the message %1$s"</string>
 </resources>

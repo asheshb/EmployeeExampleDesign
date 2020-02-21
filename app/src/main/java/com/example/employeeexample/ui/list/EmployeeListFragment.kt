@@ -199,7 +199,7 @@ class EmployeeListFragment : Fragment() {
                     }
                     activity!!.showToast(getString(R.string.alarm_set_message), Toast.LENGTH_SHORT)
                 }
-                R.id.sign_out -> {
+                R.id.menu_sign_out -> {
                     val auth = FirebaseAuth.getInstance()
                     auth.signOut()
                     auth.addAuthStateListener {
@@ -214,6 +214,12 @@ class EmployeeListFragment : Fragment() {
                         }
                     }
                 }
+                R.id.menu_chat -> {
+                    findNavController().navigate(
+                        EmployeeListFragmentDirections.actionEmployeeListFragmentToChatFragment()
+                    )
+                }
+
             }
 
             true
