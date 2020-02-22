@@ -58,7 +58,6 @@ class LoginFragment : Fragment() {
 
             if(validateInput(email, pass)){
                 progress.visibility = View.VISIBLE
-                //authenticate user
 
                 auth.signInWithEmailAndPassword(email, pass)
                     .addOnCompleteListener(requireActivity()) { task ->
@@ -70,7 +69,7 @@ class LoginFragment : Fragment() {
                         } else {
                             val toast = Toast.makeText(
                                 requireActivity(),
-                                "Authentication failed: {${task.exception?.message}}",
+                                getString(R.string.auth_failed, task.exception?.message),
                                 Toast.LENGTH_LONG
                             )
                             toast.setGravity(Gravity.CENTER_VERTICAL,0,0)
@@ -85,14 +84,14 @@ class LoginFragment : Fragment() {
     private fun validateInput(email: String, pass: String): Boolean{
         var valid = true
         if(email.isBlank()){
-            user_email_container.error = "Please enter an email address"
+            user_email_container.error = getString(R.string.enter_email_address)
             valid = false
         }
         if(pass.isBlank()){
-            user_pass_container.error = "Please enter password"
+            user_pass_container.error = getString(R.string.enter_password)
             valid = false
         } else if(pass.length < 8){
-            user_pass_container.error = "Password show be 8 characters or more"
+            user_pass_container.error = getString(R.string.password_min_char)
             valid = false
         }
         return valid

@@ -75,4 +75,9 @@ Sed non eleifend diam. Suspendisse cursus aliquam consectetur. In augue turpis, 
     <string name="alarm_set_message">Alarm set for 30 minutes from now</string>
     <string name="alarm_channel">Employee example alarm notification channel</string>
     <string name="employee_alarm">Employee Alarm</string>
+    <string name="enter_email_address">Please enter an email address</string>
+    <string name="enter_password">Please enter password</string>
+    <string name="password_min_char">Password show be 8 characters or more</string>
+
+    <string name="auth_failed">Authentication failed: %1$s</string>
 </resources>
