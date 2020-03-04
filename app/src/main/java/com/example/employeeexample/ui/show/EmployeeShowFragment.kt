@@ -89,7 +89,7 @@ class EmployeeShowFragment : Fragment() {
             }
         }
 
-        employee_age.text = getString (R.string.years, (employee.age - 18))
+        employee_age.text = getString (R.string.years, employee.age)
 
         when (employee.gender) {
             Gender.Male.ordinal -> {
