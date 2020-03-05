@@ -54,9 +54,6 @@ class ChatFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        messages.layoutManager = LinearLayoutManager(requireActivity())
-        setupMessageList()
-
         send_message.setOnClickListener{
             val messageText =  message_text.text.toString()
             if(messageText.isBlank()){
@@ -77,6 +74,8 @@ class ChatFragment : Fragment() {
                     }
             }
         }
+        messages.layoutManager = LinearLayoutManager(requireActivity())
+        setupMessageList()
     }
 
     private fun setupMessageList(){
