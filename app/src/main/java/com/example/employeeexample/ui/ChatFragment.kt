@@ -61,7 +61,7 @@ class ChatFragment : Fragment() {
                     Toast.LENGTH_SHORT).show()
             } else{
                 val ref =
-                    dbRef.reference.child(MESSAGE_BASE_PATH).push()
+                    dbRef.getReference(MESSAGE_BASE_PATH).push()
                 val userMessage = UserMessage(
                     auth.currentUser?.email ?: getString(R.string.unknown), messageText)
                 ref.setValue(userMessage).addOnSuccessListener {
@@ -129,7 +129,6 @@ class ChatFragment : Fragment() {
 
     override fun onStop() {
         super.onStop()
-
         adapter.stopListening()
     }
 }
