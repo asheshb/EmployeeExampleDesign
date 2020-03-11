@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.employeeexample.R
 import com.google.firebase.auth.FirebaseAuth
-
 import kotlinx.android.synthetic.main.fragment_register.*
 
 /**
@@ -76,17 +75,18 @@ class RegisterFragment : Fragment() {
             }
         }
     }
+
     private fun validateInput(email: String, pass: String): Boolean{
         var valid = true
         if(email.isBlank()){
-            user_email_container.error = "Please enter an email address"
+            user_email_container.error = getString(R.string.enter_email_address)
             valid = false
         }
         if(pass.isBlank()){
-            user_pass_container.error = "Please enter password"
+            user_pass_container.error = getString(R.string.enter_password)
             valid = false
         } else if(pass.length < 8){
-            user_pass_container.error = "Password show be 8 characters or more"
+            user_pass_container.error = getString(R.string.password_min_char)
             valid = false
         }
         return valid

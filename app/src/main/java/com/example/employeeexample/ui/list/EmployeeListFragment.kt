@@ -204,8 +204,8 @@ class EmployeeListFragment : Fragment() {
                     auth.signOut()
                     auth.addAuthStateListener {
                         if(auth.currentUser == null){
-                            val currId = findNavController().currentDestination!!.id
                             //listener is called multiple times so check if we are in correct fragment
+                            val currId = findNavController().currentDestination!!.id
                             if(currId == R.id.employeeListFragment) {
                                 findNavController().navigate(
                                     EmployeeListFragmentDirections.actionEmployeeListFragmentToLoginFragment()
