@@ -36,11 +36,6 @@ class ChatFragment : Fragment() {
 
         auth = FirebaseAuth.getInstance()
 
-        if (auth.currentUser == null) {
-            findNavController().navigate(
-                LoginFragmentDirections.actionLoginFragmentToEmployeeListFragment()
-            )
-        }
         dbRef = FirebaseDatabase.getInstance()
     }
 
